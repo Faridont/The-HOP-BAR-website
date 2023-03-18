@@ -5,3 +5,80 @@
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
 }
+
+body {
+    background-image: url("../images/bg_main_bottles.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    padding-bottom: 100px !important;
+}
+
+.hop-main-background-color {
+    background-color: #1d1d11 !important;
+}
+
+.hop-contrast-background-color {
+    background-color: #c9a92a !important;
+}
+
+.bg-hop-light {
+    background-color: #1d1d11cc !important;
+    border-radius: 10px !important;
+}
+
+.btn-hop {
+    background-color: #c9a92a !important;
+    color: #1d1d11 !important;
+}
+
+.btn-hop:hover {
+    background-color: #c9a92a !important;
+    color: #1d1d11 !important;
+}
+
+.btn-hop-outline {
+    background-color: #1d1d11 !important;
+    border-style: solid !important;
+    border-radius: 10px !important;
+    border-color: #c9a92a !important;
+    color: #c9a92a !important;
+}
+
+.btn-hop-outline:hover {
+    background-color: #c9a92a !important;
+    border-radius: 10px !important;
+    color: #1d1d11 !important;
+}
+
+.hop-borders {
+    border-style: solid !important;
+    border-radius: 25px !important;
+    border-color: #c9a92a !important;
+}
+
+.hop-text-main-color {
+    color: #1d1d11 !important;
+}
+
+.hop-text-contrast-color {
+    color: #c9a92a !important;
+}
+
+.hop-form-control {
+    color: #c9a92a !important;
+    background-color: #1d1d11 !important;
+    border-style: solid !important;
+    border-radius: 10px !important;
+    border-color: #c9a92a !important;
+}
+
+.hop-link:link, .hop-link:visited, .hop-link:hover, .hop-link:active {
+    color: #c9a92a !important;
+    text-decoration: none;
+}
+
+.form-check-input:checked {
+    background-color: #c9a92a !important;
+    border-color: #c9a92a !important;
+}
