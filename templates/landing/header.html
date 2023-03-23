@@ -13,8 +13,13 @@
             </ul>
 
             <div class="text-end">
-                <a class="btn btn-hop" href="/auth">Авторизация</a>
-                <a class="btn btn-hop" href="/registration">Регистрация</a>
+                {% if user.is_authenticated %}
+                    User: {{ user }}
+                    <a class="btn btn-hop" href="/users/logout">Выйти</a>
+                {% else %}
+                    <a class="btn btn-hop" href="/users/login">Авторизация</a>
+                    <a class="btn btn-hop" href="/users/register">Регистрация</a>
+                {% endif %}
             </div>
         </div>
     </div>
