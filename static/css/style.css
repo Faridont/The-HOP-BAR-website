@@ -65,7 +65,7 @@ body {
     color: #c9a92a !important;
 }
 
-.hop-form-control {
+.hop-form-control, .hop-form-control:fosus, .hop-form-control:active {
     color: #c9a92a !important;
     background-color: #1d1d11 !important;
     border-style: solid !important;

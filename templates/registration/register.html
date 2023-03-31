@@ -24,15 +24,32 @@
                     <img class="mb-4 rounded" src="{% static 'images/logo.png' %}" />
                 </a>
                 <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+
                 {% if form.errors %}
                     <p>{{ form.errors.error }}</p>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
                 {% endif %}
 
-                {{ form }}
+                <div class="form-floating hop-text-main-color mb-2">
+                    {{ form.username }}
+                    <label class="hop-text-contrast-color" for="id_username">Email</label>
+                </div>
+                <div class="form-floating hop-text-main-color mb-2">
+                    {{ form.password1 }}
+                    <label class="hop-text-contrast-color" for="id_password1">Пароль</label>
+                </div>
+                <div class="form-floating hop-text-main-color mb-2">
+                    {{ form.password2 }}
+                    <label class="hop-text-contrast-color" for="id_password2">Подвердите пароль</label>
+                </div>
                 {% csrf_token %}
                 <button class="w-100 btn btn-lg btn-hop-outline" type="submit">Зарегистрироваться</button>
                 <div class="mt-1">
-                    <a class="hop-link" href="{% url 'login' %}">Войти</a>
+                    <a class="hop-link" href="{% url 'auth' %}">Войти</a>
                 </div>
                 <p class="mt-5 mb-3">© 2017–2023</p>
             </form>
