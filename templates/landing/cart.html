@@ -1,0 +1,44 @@
+{% extends "landing/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+  <div class="row g-5 bg-hop-light mt-5" id="cart-container">
+    {% if cartRows %}
+      <h2 class="hop-text-contrast-color">Корзина</h2>
+      <table class="table table-dark table-stripped text-center">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Действия</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Количсетво</th>
+            <th>Общая цена</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cartRow in cartRows %}
+            <tr id="product-tr-{{ cartRow.product.id }}">
+              <th>{{ forloop.counter }}</th>
+              <td><button class="btn btn-sm btn-hop delete-from-cart-btn" value="{{ cartRow.product.id }}">Удалить</button></td>
+              <td>{{ cartRow.product.name }}</td>
+              <td>{{ cartRow.product.price }}</td>
+              <td>{{ cartRow.quantity }}</td>
+              <td>{{ cartRow.price }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <a href="{% url 'checkout' %}" class="btn btn-lg btn-hop">Оформить заказ</a>
+        <h3 class="hop-text-contrast-color">Общая сумма заказа: {{ cart.total_price }} тенге</h3>
+      </div>
+    {% else %}
+      <h2 class="hop-text-contrast-color mb-5 text-center">В корзине пусто)</h2>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
