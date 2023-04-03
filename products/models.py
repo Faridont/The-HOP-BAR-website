@@ -81,7 +81,7 @@ class OrderProduct(models.Model):
     quantity = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.product.name
+        return f'{self.order.id}-{self.product.name}'
 
     @property
     def price(self):
