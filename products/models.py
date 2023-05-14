@@ -75,6 +75,12 @@ class Order(models.Model):
     def order_number(self):
         return str(self.id).zfill(5)
 
+    @property
+    def num_of_items(self):
+        orderRows = self.orderRows.all()
+        quantity = sum([item.quantity for item in orderRows])
+        return quantity
+
 class OrderProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='order_products')
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="orderRows")

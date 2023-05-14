@@ -1,0 +1,30 @@
+{% extends "landing/base.html" %}
+{% block content %}
+{% load static %}
+<div class="container mt-5">
+  {% if form.errors %}
+      {% for field in form %}
+          {% for error in field.errors %}
+              <p>{{ error }}</p>
+          {% endfor %}
+      {% endfor %}
+  {% endif %}
+  <form action="{% url 'checkout' %}" method="POST">
+    <div class="row g-5 bg-hop-light mt-5">
+      <div class="col-md-5 col-lg-4 mt-3 mb-3">
+        <img class="bd-placeholder-img card-img-top" height="280" src="{{ product.image.url }}"/>
+      </div>
+      <div class="col-md-7 col-lg-8 flex-vertical-direction mt-5 mb-5">
+          <h2 class="hop-text-contrast-color">{{ product.name }}</h2>
+          <p class="card-text hop-text-contrast-color">{{ product.description }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <button type="button" class="btn btn-hop add-to-cart-btn" value="{{ product.id }}">В корзину</button>
+            <h3 class="hop-text-contrast-color">{{ product.price }} тенге</h3>
+          </div>
+      </div>
+      {% csrf_token %}
+    </div>
+  </form>
+</div>
+
+{% endblock %}

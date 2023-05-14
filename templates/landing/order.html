@@ -1,0 +1,75 @@
+{% extends "landing/base.html" %}
+{% block content %}
+{% load static %}
+<div class="container mt-5">
+  <h4 class="hop-text-contrast-color"> Заказ №{{ order.order_number }}</h4>
+  <div class="row g-5 bg-hop-light">
+    <div class="col-md-5 col-lg-4 order-md-last">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="hop-text-contrast-color">Продукты</span>
+        <span class="badge hop-contrast-background-color rounded-pill">{{ order.num_of_items }}</span>
+      </h4>
+      <ul class="list-group mb-3">
+        {% for orderRow in orderRows %}
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">{{ orderRow.product.name }} x {{ orderRow.quantity }}</h6>
+              <small class="text-muted">{{ orderRow.product.description }}</small>
+            </div>
+            <span class="text-muted">{{ orderRow.price }} Тенге</span>
+          </li>
+        {% endfor %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Всего (Тенге)</span>
+          <strong>{{ order.total_price }}</strong>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-7 col-lg-8">
+      <h4 class="mb-3 hop-text-contrast-color">Адрес доставки</h4>
+
+        <div class="row g-3">
+          <div class="col-sm-6">
+            <label for="id_firstname" class="form-label hop-text-contrast-color">Имя</label>
+            <input class="form-control" type="text" value="{{ order.firstname }}" disabled/>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="id_lastname" class="form-label hop-text-contrast-color">Фамилия</label>
+            <input class="form-control" type="text" value="{{ order.lastname }}" disabled/>
+          </div>
+
+          <div class="col-6">
+            <label for="id_email" class="form-label hop-text-contrast-color">Email</label>
+            <input class="form-control" type="text" value="{{ order.email }}" disabled/>
+          </div>
+
+          <div class="col-6">
+            <label for="id_delivery_address" class="form-label hop-text-contrast-color">Адрес</label>
+            <input class="form-control" type="text" value="{{ order.delivery_address }}" disabled/>
+          </div>
+        </div>
+        <h4 class="mb-3 hop-text-contrast-color">Оплата</h4>
+        <div class="my-3">
+          <div class="form-check">
+            <div id="id_pay_method" class="hop-text-contrast-color">
+              <div>
+                <label for="id_pay_method_0">
+                  <input type="radio" name="pay_method" value="1" class="hop-text-contrast-color" checked="{{ order.is_kaspi_pay }}" {% if order.is_kaspi_pay is True %}disabled{% endif %} />
+                  Kaspi Gold
+                </label>
+              </div>
+              <div>
+                  <label for="id_pay_method_1">
+                    <input type="radio" name="pay_method" value="2" class="hop-text-contrast-color" checked="{{ order.is_cash_pay }}" {% if order.is_cash_pay is True %}disabled{% endif %} />
+                    Наличные
+                  </label>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

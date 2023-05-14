@@ -19,8 +19,11 @@ from . import views
 
 urlpatterns = [
     path('main/', views.main, name='main'),
+    path('product/<int:id>', views.product, name='product'),
     path('checkout/', views.Checkout.as_view(), name='checkout'),
+    path('order/<int:id>', views.order, name='order'),
     path('cart/', views.cart, name='cart'),
+    path('about_us/', views.about_us, name='about_us'),
     path('orders_list/', views.orders_list, name='orders_list'),
     path("add-to-cart", views.add_to_cart, name="add_to_cart"),
     path("delete-from-cart", views.delete_from_cart, name="delete_from_cart")

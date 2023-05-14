@@ -11,18 +11,43 @@ def main(request):
 
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
+        orders = Order.objects.all().filter(user=request.user)
 
     return render(request, 'landing/main.html', locals())
+
+def product(request, id):
+    cart = None
+    orders = []
+    product = Product.objects.get(id=id)
+
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
+        orders = Order.objects.all().filter(user=request.user)
+
+    context = {
+        "cart": cart,
+        "orders": orders,
+        "product": product
+    }
+
+    return render(request, 'landing/product.html', context)
 
 def cart(request):
     cart = None
     cartRows = []
+    orders = []
 
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
         cartRows = cart.cartRows.all()
+        orders = Order.objects.all().filter(user=request.user)
 
-    context = {"cart": cart, "cartRows": cartRows}
+    context = {
+        "cart": cart,
+        "cartRows": cartRows,
+        "orders": orders
+    }
+
     return render(request, "landing/cart.html", context)
 
 def add_to_cart(request):
@@ -38,7 +63,6 @@ def add_to_cart(request):
 
         num_of_item = cart.num_of_items
 
-        print(cartProduct)
     return JsonResponse(num_of_item, safe=False)
 
 def delete_from_cart(request):
@@ -54,35 +78,69 @@ def delete_from_cart(request):
 
         num_of_item = cart.num_of_items
 
-        print(cartProduct)
     return JsonResponse(num_of_item, safe=False)
 
 def orders_list(request):
-    orders = None
-    orderRows = []
-    if request.user.is_authenticated and request.user.is_superuser:
-        orders = Order.objects.all()
-        orderRows = orders.orderRows.all()
+    orders = Order.objects.all().filter(user=request.user)
+    cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
 
-    context = {"order": orders, "orderRows": orderRows}
+    context = {
+        "orders": orders,
+        "cart": cart
+    }
+
     return render(request, "landing/orders_list.html", context)
 
+def order(request, id):
+    orders = Order.objects.all().filter(user=request.user)
+    cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
+    order = Order.objects.get(id=id)
+    orderRows = order.orderRows.all()
+
+    print(order)
+
+    context = {
+        "orders": orders,
+        "cart": cart,
+        "order": order,
+        "orderRows": orderRows
+    }
+
+    return render(request, "landing/order.html", context)
+
+def about_us(request):
+    cart = None
+    orders = []
+
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
+        orders = Order.objects.all().filter(user=request.user)
+
+    context = {
+        "cart": cart,
+        "orders": orders
+    }
+
+    return render(request, 'landing/about_us.html', context)
 class Checkout(View):
     template_name = 'landing/checkout.html'
 
     def get(self, request):
         cart = None
         cartRows = []
+        orders = []
         form = OrderForm()
 
         if request.user.is_authenticated:
             cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
             cartRows = cart.cartRows.all()
+            orders = Order.objects.all().filter(user=request.user)
 
         context = {
             "cart": cart,
             "cartRows": cartRows,
-            "form": form
+            "form": form,
+            "orders": orders
         }
 
         return render(request, self.template_name, context)

@@ -6,10 +6,29 @@
     </a>
 
     <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted hop-text-contrast-color">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted hop-text-contrast-color">Features</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted hop-text-contrast-color">Pricing</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted hop-text-contrast-color">FAQs</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted hop-text-contrast-color">About</a></li>
+        <li><a href="{% url 'main' %}" class="nav-link px-2 hop-link">Главная</a></li>
+        {% if not user.is_superuser and user.is_authenticated %}
+            <li>
+                <a href="{% url 'cart' %}" class="nav-link px-2 hop-link">
+                    Корзина
+                    {% if cart.num_of_items != 0 %}
+                        <span class="badge hop-contrast-background-color rounded-pill" id="num_of_items">
+                            {{ cart.num_of_items }}
+                        </span>
+                    {% endif %}
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'orders_list' %}" class="nav-link px-2 hop-link">
+                    Заказы
+                    {% if orders|length != 0 %}
+                        <span class="badge hop-contrast-background-color rounded-pill">
+                            {{ orders|length }}
+                        </span>
+                    {% endif %}
+                </a>
+            </li>
+        {% endif %}
+        <li><a href="{% url 'about_us' %}" class="nav-link px-2 hop-link">О нас</a></li>
     </ul>
   </footer>

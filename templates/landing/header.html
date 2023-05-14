@@ -14,14 +14,25 @@
                     <li>
                         <a href="{% url 'cart' %}" class="nav-link px-2 hop-link">
                             Корзина
-                            <span class="badge hop-contrast-background-color rounded-pill" id="num_of_items">
-                                {% if cart.num_of_items != 0 %}
+                            {% if cart.num_of_items != 0 %}
+                                <span class="badge hop-contrast-background-color rounded-pill" id="num_of_items">
                                     {{ cart.num_of_items }}
-                                {% endif %}
-                            </span>
+                                </span>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'orders_list' %}" class="nav-link px-2 hop-link">
+                            Заказы
+                            {% if orders|length != 0 %}
+                                <span class="badge hop-contrast-background-color rounded-pill">
+                                    {{ orders|length }}
+                                </span>
+                            {% endif %}
                         </a>
                     </li>
                 {% endif %}
+                <li><a href="{% url 'about_us' %}" class="nav-link px-2 hop-link">О нас</a></li>
             </ul>
 
             <div class="text-end">
